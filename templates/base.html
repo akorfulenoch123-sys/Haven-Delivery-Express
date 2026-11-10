@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Haven Delivery Express: fast, reliable local delivery.">
+  <title>{% block title %}Haven Delivery Express{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar"><div class="container navrow">
+  <a class="brand" href="{{ url_for('home') }}"><span class="logo">🛵</span><span><b>Haven Delivery<br>Express</b><small>FAST • RELIABLE • SAME-DAY</small></span></a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">☰</button>
+  <nav id="navlinks">
+    <a href="{{ url_for('home') }}#services">Services</a><a href="{{ url_for('track_order') }}">Track order</a><a href="{{ url_for('book_delivery') }}">Book delivery</a>
+    {% if current_user %}
+      {% if current_user.role == 'admin' %}<a href="{{ url_for('admin_dashboard') }}">Admin</a>{% else %}<a href="{{ url_for('dashboard') }}">My bookings</a>{% endif %}
+      <form method="post" action="{{ url_for('logout') }}" class="inline-form"><input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"><button class="nav-button" type="submit">Log out</button></form>
+    {% else %}<a href="{{ url_for('login') }}">Log in</a><a class="nav-cta" href="{{ url_for('register') }}">Create account</a>{% endif %}
+  </nav>
+</div></header>
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flashes">{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer><div class="container footer-row"><a href="{{ url_for('home') }}">🛵 Haven Delivery Express</a><span>{{ business_config.operating_hours }} · Trusted • Professional • Fast • Reliable</span><span>© {{ year }} Haven Delivery Express</span></div></footer>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+</body></html>

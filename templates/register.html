@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Create account | Haven Delivery Express{% endblock %}{% block content %}
+<section class="form-section"><div class="form-card"><span class="kicker">JOIN HAVEN</span><h1>Create your account</h1><p>Keep your delivery bookings together in one place.</p><form method="post"><input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+<label>Full name<input name="name" required autocomplete="name" value="{{ request.form.get('name','') }}"></label>
+<label>Email address<input type="email" name="email" required autocomplete="email" value="{{ request.form.get('email','') }}"></label>
+<label>Phone number<input name="phone" required autocomplete="tel" value="{{ request.form.get('phone','') }}"></label>
+<label>Password <small>(at least 8 characters)</small><input type="password" name="password" minlength="8" required autocomplete="new-password"></label>
+<button class="btn blue full" type="submit">Create account</button></form><p class="form-foot">Already registered? <a href="{{ url_for('login') }}">Log in</a></p></div></section>{% endblock %}

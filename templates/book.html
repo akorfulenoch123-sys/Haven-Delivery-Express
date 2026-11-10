@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Book a delivery | Haven Delivery Express{% endblock %}{% block content %}
+<section class="form-section wide"><div class="form-card"><span class="kicker">DELIVERY REQUEST</span><h1>Book a delivery</h1><p>Tell us what needs to move and where it is going. Fields marked * are required.</p>
+<form method="post"><input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"><div class="form-grid">
+<label>Customer name *<input name="customer_name" required value="{{ form.get('customer_name','') }}"></label>
+<label>Phone number *<input name="customer_phone" required value="{{ form.get('customer_phone','') }}" placeholder="e.g. 024 000 0000"></label>
+<label>Email address<input type="email" name="customer_email" value="{{ form.get('customer_email','') }}"></label>
+<label>Service type *<select name="service_type" required><option value="">Choose a service</option>{% for service in services %}<option {% if form.get('service_type')==service %}selected{% endif %}>{{ service }}</option>{% endfor %}</select></label>
+<label class="span2">Pickup address *<input name="pickup_address" required value="{{ form.get('pickup_address','') }}" placeholder="House number, street, area, landmark"></label>
+<label class="span2">Delivery destination *<input name="dropoff_address" required value="{{ form.get('dropoff_address','') }}" placeholder="House number, street, area, landmark"></label>
+<label>Package / order details *<input name="package_details" required value="{{ form.get('package_details','') }}" placeholder="What are we delivering?"></label>
+<label>Preferred pickup time<input type="datetime-local" name="preferred_time" value="{{ form.get('preferred_time','') }}"></label>
+<label class="span2">Additional notes<textarea name="notes" rows="3" placeholder="Gate instructions, recipient name, special handling...">{{ form.get('notes','') }}</textarea></label>
+</div><div class="notice"><b>Pricing note:</b> Your delivery fee will be confirmed by Haven Delivery Express before dispatch. No final fee is charged by this request form.</div><button class="btn blue full" type="submit">Submit delivery request →</button></form></div></section>{% endblock %}

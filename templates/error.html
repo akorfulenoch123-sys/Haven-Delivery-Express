@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block title %}Error {{ code }} | Haven Delivery Express{% endblock %}{% block content %}<section class="form-section"><div class="form-card"><span class="kicker">OOPS</span><h1>Error {{ code }}</h1><p>{{ message }}</p><a class="btn blue" href="{{ url_for('home') }}">Return home</a></div></section>{% endblock %}
